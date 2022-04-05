@@ -596,12 +596,76 @@ public static int Main(string[] args) {
 
 # What is abstraction property in OOP ?
 
-Abstraction is a way we hide the detail implementation of a class, only care how it work, not care about how it be implemented
+Abstraction: it mean the class should show essential information and hiding detail from user
 
-For example: we use Dependency Injection, not
+> In C#, Abstraction can be achived with abstract class.
+
+Abstract class is a class can not be instanciated.
+
+Abstract method is a method that do not have a body and the actual implementation is in the derived class.
+
+> Abstract class provide a common definition of property and method that derived class can share
+
+```
+class program  
+{  
+    abstract class animal  
+    {  
+        public abstract void eat();  
+        public void sound()  
+        {  
+            Console.WriteLine("dog can sound");  
+        }  
+    }  
+    class dog : animal  
+    {  
+        public override void eat()  
+        {  
+            Console.WriteLine("dog can eat");  
+        }  
+    }  
+    static void Main(string[] args)  
+    {  
+        dog mydog = new dog();  
+        animal thePet = mydog;  
+        thePet.eat();  
+        mydog.sound();  
+    }  
+}  
+```
 
 # What is polymorphism property in OOP ?
 
+Polymorphism mean that same class can have multiple functionality, multiple implementation
+
+> Method in derived class can be overide the method in base class
+
+For example:
+
+    Compiler will check the parameter passed and make the decision of which method to call
+
+```
+public class TestData  
+{  
+    public int Add(int a, int b, int c)  
+    {  
+        return a + b + c;  
+    }  
+    public int Add(int a, int b)  
+    {  
+        return a + b;  
+    }  
+}  
+class Program  
+{  
+    static void Main(string[] args)  
+    {  
+        TestData dataClass = new TestData();  
+        int add2 = dataClass.Add(45, 34, 67);  
+        int add1 = dataClass.Add(23, 34);  
+    }  
+}  
+```
 
 
 
