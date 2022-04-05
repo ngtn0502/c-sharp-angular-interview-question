@@ -6,13 +6,15 @@ some little note by myself to remind how much i suffered
 
 ---
 
-## Things worth to review:
+# Things worth to review:
 
 | No. | Content                                                               |
 | --- | --------------------------------------------------------------------- |
 |     |                                                                       |
-| 0   | [Nothing](#nothing)                             |
+| 1   | [Angular](#angular)                             |
+| 2   | [dotNET](#dotnet)                             |
 
+# Angular
 
 # Difference Shadow DOM and virtual DOM ?
 
@@ -44,8 +46,114 @@ Angular will call some method in each phrases / process.
 
 # What is the Spread operator ?
 
+# What is State Manament Angular?
+
+State is a way we store data member in component in react or angular
+
+There are several way to do state management in Angular
+
+For Example:
+
+    Service
+
+    NgRx
+
+# What's the difference of ASP.Net and .Net Core?
+
+ASP.NET: is a framwork of .NET Core for building web-api
+
+.NET Core: is a open-source platform for building many kind of allication, include web application
+
+# What access modifiers exist in C#?
+
+Public: mean that the type/member is available for all other code in the same assembly 
+
+Private: mean that the type/member are only available in the same class
+
+Protected: mean that the type/member are only available in the same class or in the class derived from this class 
+
+Static: static class can not be instanciated ( cannot use `new operator` to create class) - we access the method of static class by calling class name itself
+
+    ex: Console.Wriline()
+
+# What design patterns and software principles have you worked with?
+
+OOP principle
+
+SOLID principle
+
+Dependency Injection principle
+
+Generic Repository pattern
+
+Specificaiton pattern
+
+Mediator patern
+
+# What is singleton?
+
+Singleton: our dependency will intanciated when our application start and remain/alive whole lifetime of our application
+
+# What is a difference between string and stringbuilder? When would you use over the other?
+
+String: string is immutable - it mean when we save a string in to variable - we save the actual value of string in memory.
+
+> When we change string - it will create new place in memory rather than changing the actual value sit on memory
+
+StringBuilder: is mutable
+
+> When we change stringBuilder -  we change the actual value sit on memory
+
+> StringBuilder helpful when we have to append or concat string, because it do not create new string in memory - do not cause memory leak.
+
+# What memory leaks you are aware of in C#?
+
+If we use string type, whenever we concat or append string, it will create new string variable in memory -> lead to memory leak 
+
+Keeping database connections or result sets open when they are not used. Remember to call Dispose() on all IDisposable objects. Use the using statement.
+
+# What's the purpose of garbage collector?
+
+GC help us to manage memory automatically
+
+- Allocate object on memory heap rather than stack
+
+- Clean variable when it no longer in use -> release memory
+
+# How do you handle errors in C#?
+
+```
+try {
+
+}
+catch {
+
+}
+```
+# What is Interceptor?
+
+in Angular, interceptor is a special services . We use to Interceptor to intercep into every HTTP Request and HTTP Respone 
+
+Normally, we use our information into our HTTP headers of HTTP Request or modify/format HTTP Response information before returning services
+
+# What is Reactive Programing?
+
+Reactive Programing is asynchronous data-stream programming
+
+In reactive programing, we use Observable to control data-stream, observable will emit the data for every changes of the state, observer will receive notification if they subscribe to an observable
+
+# What is RxJs?
+
+RxJs is library for reactive programming;
+
+RxJS provide some classes and operator for 
 
 
+---
+
+---
+
+# dotNET
 
 # How long have you work with .Net Framework ?
 
@@ -73,7 +181,11 @@ Both: is a free, open-source platform to create web app, web api, mobile app, de
 
 # Why we have to use .Net Core ?
 
-Because it help the development process easier
+> .NET Core support cross-platform
+
+> Lightweight, fast, better perforamance
+
+> Well support for cloud computing eviroment
 
 # What is the Entity Framework ?
 
@@ -194,21 +306,76 @@ And we have to use the help of ASP.NET to register this dependency in ConfigureS
 
 services.AddSingleton(<IDependency>, Dependency)
 
-> Singleton: the services will be intai
+> Transient: the services will be instantiate every time we request it
+
+> Scoped: the services will be instantiate and create its scope. Within this scope, it reuses the existing services. Services will be destroy if no one using or reference to it
+
+> Singleton: the services will be instantiate and remain with lifetime of application, and we can use it every where
+
 # What are the Service LifeTimes in Asp.Net Core ?
 
 
 
 # What is the asynchronous programming in .Net ?
 
+In C#, we use async-await and Task object to perform asynchronous task - and it follow [Task-based Asynchronous Pattern](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
 
+We await to the method that take time or services response for calling external api, it will run in the background and does not affect main thread of out application
 
 # Code first, model fist, database first ?
 
+It is way of approach we use in Entity Framework
 
+> Code frist: means we write .NET Class, entity framework will convert this class into entity of database - control database by code
 
-# Controller Action return types in Asp.Net Core ? (https://www.c-sharpcorner.com/article/
+> Database first: means EF will creates model and class for us based on the existing database
+
+> Model first: means we draw the models first by EF Designer tool and EF will take care about creating database for us
+
+# Controller Action return types in Asp.Net Core ? - [Articles](https://www.c-sharpcorner.com/article/
 3-ways-to-return-the-data-from-controller-action-method-in-asp-net-core/)
+
+Return IActionResult Type
+
+Benefit:
+> It allow to return multiple type of data along with the status code, this is very important in RESTful API
+
+Drawback:
+> Have to define type of data for swagger.
+
+```
+[Route("emplpyees/{id}")]
+[ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Employee))]  
+[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Employee))]  
+public IActionResult GetEmployeeById(int id)  
+{  
+    if (id == 0)  
+    {  
+        return NotFound();  
+    }  
+    var employee = new Employee() { Id = 1, Name = "Nitish" }; // Get the data from db  
+    return Ok(employee);  
+}  
+```
+
+Return ActionResult<T>
+
+Benefit
+> It allow to return multiple type of data along with the status code, this is very important in RESTful API, does not need to defiend type of data for swagger
+
+[Route("emplpyees/{id}")]  
+[ProducesResponseType(StatusCodes.Status201Created)]  
+[ProducesResponseType(StatusCodes.Status400BadRequest)]  
+public ActionResult<Employee> GetEmployeeById(int id)  
+{  
+    if (id == 0)  
+    {  
+        return NotFound();  
+    }  
+    var employee = new Employee() { Id = 1, Name = "Nitish" }; // Get the data from db  
+    return employee;  
+}  
+
 # There are two methods , method1 allows user1 access, method2 allows user2 access. How can we implement that feature ?
 
 
@@ -347,8 +514,5 @@ services.AddSingleton(<IDependency>, Dependency)
 
 # What is KISS principle ?
 
-
-
-#  
 
 
