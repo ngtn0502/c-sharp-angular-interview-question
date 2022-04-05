@@ -382,15 +382,28 @@ public ActionResult<Employee> GetEmployeeById(int id)
 
 # Exception handling in Asp.Net Core ?
 
+To handle exception in ASP.Net Core, we use exception middleware
+
+It will catch the HTTP Request pipeline
+
+If there is error in Request, middleware will return `the consist response type`.
+
+> Consistent response type is important because it help client-side easier to handle error message.
+
+If there is no error, middleware will let the HTTP Request continue to next middleware in the pipeline.
 
 
 # How to define routing in Asp.net Core ?
 
+In Asp.Net Core, it is provide a feature called Route Attribue: [Route="Employee/Id"]
 
+It allow us to defined a route for controller or action method inside the controller.
 
 # Is it possible to keep the same name of action methods ?
 
+Yes, it is possible to have the same name of action method.
 
+But the action method need to have difference route attribute or difference parametter.
 
 # How can you handle exception in .Net ?
 
@@ -398,9 +411,11 @@ public ActionResult<Employee> GetEmployeeById(int id)
 
 # What is RestFul API ?
 
-
+RESTful API is a standart for developing web api
 
 # What are the differences between methods GET/POST/PUT/DELTE/PATCH ?
+
+> POST: create new set of data in 
 
 
 
@@ -410,11 +425,17 @@ public ActionResult<Employee> GetEmployeeById(int id)
 
 # Stack and Heap ?
 
+Stack is where stored primitype type ( number, int, boolean, et cetera...)
 
+Heap is where stored reference type ( object, array, class, string, et cetera...)
 
 # String is reference type or value type ?
 
+String is reference type. But string is immuatble.
 
+It means, everytime we change the value of string, compiler will create a new string object in memory and point the string variable into that memory location.
+
+We can use StringBuilder to make string muatable.
 
 # Can you tell about your experience in Unit Test / Integration Test ?
 
@@ -422,19 +443,51 @@ public ActionResult<Employee> GetEmployeeById(int id)
 
 # What is the Model Binding in Asp.Net ?
 
-
+Model binding is a way ASP.NET Core bind our Routing Data ( path, query parameter,..) into the RouteAttribute of action method in the controller
 
 # Model binding / Parameter binding types in Asp.Net Core ? FromBody / FromForm / FromQuery / FromRoute / FromHeader
 
-
+Parameter binding is a way ASP.NET Core bind our Body, Header Data to the parameter of action method in the controller
 
 # Difference between Ienumrable and Iqueryable ?
 
+IEnumerable should ony using for storing in-memory value ( memory/data not connected to the database)
 
+IQueryable should using for data fetching from the database.
 
-# How can we handle exception in Asp.Net Core ?
+Because:
 
+``` 
+TestingEntiies db = new TestingEntities(); //mock databse
+```
 
+> IEnumerable: fetch all table from database and apply filter in client side
+
+```
+In C#:
+
+IEnumerable<Employee> ob = db.Employee // loading employee table
+IEnumerable<Employee> b = ob.Where(x => x.id == 2).ToList();
+
+In SQL:
+
+SELECT * FROM [Employee]
+```
+
+> IQueryable: filter and fetch data directly in database
+
+```
+In C#:
+
+IQueryable<Employee> ob = db.Employee // loading employee table
+IQueryable<Employee> b = ob.Where(x => x.Id == 2).ToList();
+
+In SQL:
+
+SELECT * FROM [Employee] WHERE Id = 2;
+```
+
+> So IQueryable is better performance than IEnumerable with in-database data
 
 # Have you ever analyze and design an application from by your-self ?
 
@@ -442,77 +495,114 @@ public ActionResult<Employee> GetEmployeeById(int id)
 
 # Can you explain about keyword async/await ?
 
+Async/await key word is use for asynchronous programing in C#
 
+Async: we add async before the method to make this method become asynchronous, and we can be able use await keyword inside async method
+
+Await: we add await before the task to run this task in the background ( does not block the main task) and to tell the execution should stop until the Task complete.
 
 # What is the difference between Task and Thread ?
 
+Task repesent some work should be done in the background ( so it does not block the main thread)
 
+Thread is the worker - is the thing that responsible for the execution
 
 # What is reflection technique in .Net ?
-
 
 
 # What is the memory leak ?
 
 
-
 # What tools we can monitor/diagnostic memory leak in Visual Studio ?
-
 
 
 # How can we optimize performance for Asp.Net application ?
 
-
+IQueryable and IEnumerable
 
 # Access modifiers in .Net ?
 
+Pulic / Private / Protected / Internal
 
+Public: method/property of this class will available to all other class in the same asembly
+
+Private: method/property of this class only available in the same class
+
+Protected: method/property of this class will be available in the same class and derived class of protected class ( same asembly)
+
+Internal: method/property of this class will be available in the same class and derived class of internal class same asembly and difference assembly.
 
 # Difference between reference type and value type ?
 
+Reference type: mean that the variable only hold the address/ hold the reference to the actual value.
 
+Value type: mean that the variable hold the actual value sit in memory.
 
 # Difference string and stringbuilder ?
 
+String is immutable
 
+StringBuilder is mutable
 
 # OOP properties ?
 
+Enscapsulation
 
+Inheritance
+
+Abstraction
+
+Polymorphism
 
 # What is inheritance property in OOP ?
 
+The class can be inherit from base class, and this will have access to method and property of base class
 
+> Make the class more flexible - increase scalability
 
 # What is encapsulation in OOP ?
 
+We encapsulate/protect the property and method (data) of the class ( by using access modifier).
 
+> We protect the data of the class, to prevent accidentally modify from other class
+
+> The data or property of the class will be hidden from any other class
+
+> Encapsulation can be achieved by using access modifier
+
+```
+using system;  
+public class Department {  
+    private string departname;.......  
+    // Accessor.  
+    public string GetDepartname() {  
+        return departname;  
+    }  
+    // Mutator.  
+    public void SetDepartname(string a) {  
+        departname = a;  
+    }  
+}  
+```
+
+```
+public static int Main(string[] args) {  
+    Department d = new Department();  
+    d.SetDepartname("ELECTRONICS");  
+    Console.WriteLine("The Department is :" + d.GetDepartname());  
+    return 0;  
+}
+```
 
 # What is abstraction property in OOP ?
 
+Abstraction is a way we hide the detail implementation of a class, only care how it work, not care about how it be implemented
 
+For example: we use Dependency Injection, not
 
 # What is polymorphism property in OOP ?
 
 
-
-# Do you know any design pattern ?
-
-
-
-# What is Singleton design pattern ?
-
-
-
-# What is Factory Method design pattern ?
-
-
-
-# What is SOLID ?
-
-
-
-# What is KISS principle ?
 
 
 
