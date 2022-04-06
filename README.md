@@ -636,9 +636,11 @@ class program
 
 # What is polymorphism property in OOP ?
 
-Polymorphism mean that same class can have multiple functionality, multiple implementation
+Polymorphism mean that the derived class can overide the method in base class
 
-> Method in derived class can be overide the method in base class
+> Method in derived class can overide the method in base class
+
+Polymorphism mean that same class can have multiple functionality, multiple implementation
 
 For example:
 
