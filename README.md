@@ -1,4 +1,4 @@
-Stress-out note
+Q note
 
 NhanNguyen
 
