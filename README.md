@@ -669,6 +669,306 @@ class Program
 }  
 ```
 
+# Database
 
+## Store Procedure (advantage, disadvantage), how can it improve the performance?
+
+Pros
+
+- Good performance
+- High security
+- Reusable
+
+Cons
+
+- Hard for testing and debugging
+- Hard for maintenance
+
+Improvement
+
+- Split SP into smaller SP, single responsibility for easy to maintenance
+- SET NOCOUNT ON
+- Avoid select all columns
+- Avoid sub-query
+- Avoid calculation in WHERE clause
+- Try to avoid/limit using cursor
+- Avoid prefix sp_
+- Use schema name with tables
+- Consider using temporary table, table variable, CTE
+- Use indexing
+- Use SQL Profiler and Execution Plan to analyze and turning query
+
+## Truncate vs delete from
+
+- DELETE: Delete row or table based on condition
+
+```
+DELETE FROM tbo.example
+WHERE condition
+```
+
+- TRUNCATE: delete all row or all table in database not based on any condition
+
+```
+TRUNCATE FROM tbo.example
+```
+
+## Identity vs scope identity
+
+@@Indentity return last id value in the same database connection 
+
+Scope_Identity() return last id value in the same scope
+
+## Nosql vs sql
+
+
+## What kind of Database that you have been using so far ?
+
+I mainly use mongodoDB for nosql database and sql server for relational-database
+
+## How long have worked with MS SQL Server ?
+
+I have little experience with sql server, it about 2-3 years
+
+## What types of object or features that you have been using in MS SQL ?
+
+## What types of join do you know in SQL ?
+
+Inner join: Return records that have matching value in both table
+
+Left join: Return all records in left table and matched record in right table
+
+Right join: Return all records in right table and matched record in left table
+
+Full Outer join: Return all records, even if it matched or not
+
+## What is user-defined function in SQL ?
+
+UDF is most likely like function in other programming languages, use to perform complex calculation or formating data.
+
+UDF can take one or more input parameter and return single value or result set of value
+
+## What is stored procedure in SQL ?
+
+Store procedure is a container for reusable query, that we can execute over and over late.
+
+## What is the view in MS SQL ?
+
+View is a place contained saved sql query, it can be consider as a virtual table.
+
+- Help to reduce the complexity of join query => No need to write joint query everytime we need
+
+## What is sub-query ?
+
+Sub-query is a nested query inside outer query.
+
+We use returned value from sub-query to perform another outer query.
+
+## Store Procedure (advantage, disadvantage), how can it improve the performance?
+
+Advanages:
+
+- Reuseable.
+
+- Decouple business logic code from database
+
+- High security.
+
+Disadvantage:
+
+- Hard to debug and maintain because error only happen in compile time.
+
+Improvetion
+
+- SET NOCOUNT ON
+
+- Split sp into multiple sp with single responsibility
+
+- Avoid select all column
+
+- Using indexes.
+
+## What is temporary table in MS SQL ?
+
+Temporary table is most likely like permanent table, is useful for saved permanent data or intermadiate table.
+
+## What is the index in database ? Any attention for using index ?
+
+Indexing is a technique help us to improve the performance of the query.
+
+We index the column to sort it into specific order, and when we do the searching in where clause or any other condition, it will reduce the time 
+## What are the difference between clustered index and non-clustered index ?
+
+[Clustered - Non-Clustered Indexing](https://www.youtube.com/watch?v=NGslt99VOCw&t=259s)
+
+Clustered index is defined how records are arranged/stored physically in table
+
+- ex: Primmary key will be set to be clustered index by default when we created table, that reason why our records displayed by ascending order in table
+
+Non-clustered index: we indexing a column of table in another place, when we do the searching it will find data in indexing table after that sql server will do the lookup to find actual data in real table.
+
+Difference:
+
+- One clustered index - many non-clustered index
+
+- Clustered index is faster and lighter than non-clusterd index
+
+> Because non-clustered index need to create one more table and do the lookup thing
+
+- Clusterd index determines how records sit physically in specific order 
+
+- non-CLuster index do not affect how records is store in table
+
+## What are the difference between User-Defined Function and Stored Procedure ?
+
+Scalar(adj): a thing should be returned one or single value
+
+UDF is most likely like function in programming languages: we use to convert value to another format, perform a complex calculation, help us to not repeat the code multiple time.
+
+Store procedure is a place we saved query for reuseable purpuse.
+
+Difference:
+
+- UDF must return value - SP does not force
+
+- SP can have output parameter - UDF can not
+
+## What is the transaction in SQL Server ?
+
+Transaction: is a way we ensure to do not accidentally modify the stored data - ensure the integrity of data
+
+When we begin the transaction, it help us to decide to commit transaction when all query is complete - or rollbacked the database to previous staged when there is an error.
+
+> It help to prevent the maintain the integrity of database
+
+## Different between @@IDENITY, SCOPE_IDENTITY() and IDENT_CURRENT() ?
+
+@@Indentity return id value of latest query which executed in same connection
+
+Scope_Identity() return id value of latest query which executed in the same scope
+
+ - Scope mean: in the same function, store procedure,..
+
+## @ERROR and ERROR_NUMBER() ?
+
+This is a old way to handle error in SQL Server
+
+Now we using Try..Catch like another programming languages ( C#, Java) to handle error
+
+Try...Catch block is using with Transaction to ensure the integrity of database
+
+```
+Create Store Procedure SP_Example
+@ProductID int,
+as
+Begin
+
+Begin Try
+    Begin Transaction
+        // Logic query 
+        // Logic code
+    Commit Transaction // Commit all query to affect database if there no error
+End Try
+Begin Catch
+    Rollback Transaction // Rollback to previous staged of database when there is error happened
+End Catch
+End
+```
+
+## Primary Key and Unique Key ?
+
+Primary key: is an identifier of records - ensure records in specific column is unique
+
+- Primary key value is unique in column.
+
+- Does not allow null
+
+- Only one primary key constrain in table
+
+- Using for clustered indexing by default 
+
+Unique key: is a constrain to make sure data in the column is unique - not duplicated
+
+- Allow null
+
+- Allow multiple unique key constrain in one table
+
+- For creating non-clusterd indexing
+
+## Primary Key and Foreign Key ?
+
+Foreign key in one table is primary key in another table
+
+Foreign key is a column that reference to another columns ( usually primarykey) in another table
+
+- It display the relationship between two table
+
+- One records allow to be have multiple foreign key.
+
+- Can have more than one foreign key in table
+
+- Can contain null value
+
+## What is the self-join in SQL and when should we use it ?
+
+We rarely using self-join in SQL
+
+ex: Using it when table references data in itself
+
+## What types of backup do you know in SQL Server ?
+
+Full Backup: foundation of any backup - need to be done first in every kind of backup
+
+Differential Backup: backup the difference between latest full-backup and recent file
+
+Transaction Backup
+
+Log Backup
+
+## What is cross join and full join in SQL ?
+
+Cross join: combine all comlumn and all record from two table into one - no on clause are made
+
+Full join: is combine of right join and left join - it try to join two table, if any column does not sactify the on clause it will return null in this
+
+## What tool we can use for tracing query in MS SQL Server ?
+
+Sql server profiler
+
+## Do you know any best practice when working with stored procedures ?
+
+Drop store before creating new store procedures
+
+Split store procedure into multiple-small-onepurpose-singleResponsibility store procedure => easy to maintain and debug
+
+Using indexing to increase performance 
+
+Carefully when using where clause and subquery - because sub-query in where clause will be executed in every records in outer table
+
+Avoild calculation in where clause
+
+SET NOCOUNT ON -> We do not need to see *how manny row effected* in every completed query in store procedure -> increate performance
+
+Using schema name for table
+
+Carefully, consider when using temporary table, temporary variable
+
+## Do you know how to optimize query performance ?
+
+Avoid select all column - avoid select *
+
+Avoid subquery in where clause - avoid calculation in where clause
+
+> Because where clause will be executed in every records in table
+
+Avoid/Consider when using temporary table, temporary varible
+
+## Do you know how to optimize performance of the database ?
+
+Propering indexing
+
+Retreive needed data - relevant data only - need to analyze the requrement/business carafully
+
+Consider when using subquery in every query
 
 
