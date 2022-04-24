@@ -1,8 +1,4 @@
-Q note
 
-NhanNguyen
-
-some little note by myself to remind how much i suffered
 
 ---
 
